@@ -1,0 +1,22 @@
+#!/usr/bin/env cwl-runnercwlVersion: v1.0
+
+class: CommandLineTool
+
+doc: "Cat the input files"
+
+hints:
+  DockerRequirement:
+    dockerPull: bash
+
+inputs:
+  pubk:
+    type: File
+    inputBinding:
+      position: 1
+      
+outputs:
+  output:
+    type: stdout
+    
+stdout: cato
+baseCommand: [cat]
