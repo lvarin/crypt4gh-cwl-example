@@ -51,6 +51,6 @@ steps:
   - id: cato
     run: hashsplitter-unify.cato.yml
     in:
-      - { id: pubk, source: input }
+      - { id: pubk, source: pubk }
     out:
       - { id: output }
