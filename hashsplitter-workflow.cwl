@@ -8,7 +8,10 @@ inputs:
   - id: input
     type: File
     doc: "to be hashed all the ways"
-
+  - id: pubk
+    type: File
+    doc: "A public key"
+    
 outputs:
   - id: output
     type: File
@@ -42,5 +45,12 @@ steps:
       - { id: md5, source: md5/output }
       - { id: sha, source: sha/output }
       - { id: whirlpool, source: whirlpool/output }
+    out:
+      - { id: output }
+      
+  - id: cato
+    run: hashsplitter-unify.cato.yml
+    in:
+      - { id: pubk, source: input }
     out:
       - { id: output }
