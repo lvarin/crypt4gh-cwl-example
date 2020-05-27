@@ -8,10 +8,15 @@ inputs:
   - id: input
     type: File
     doc: "to be hashed all the ways"
-  - id: pubk
+  - id: lftp_out_conf
     type: File
-    doc: "A public key"
-    
+  - id: private_key
+    type: File
+  - id: public_key
+    type: File
+  - id: secret
+    type: string
+
 outputs:
   - id: output
     type: File
@@ -47,10 +52,20 @@ steps:
       - { id: whirlpool, source: whirlpool/output }
     out:
       - { id: output }
-      
-  - id: cato
-    run: hashsplitter-unify.cato.yml
+
+  - id: encrypt
+    run: hashsplitter-unify.encrypt.yml
     in:
-      - { id: pubk, source: pubk }
+      - id: files_to_encrypt
+        source:
+          - md5/output
+          - sha/output
+          - whirlpool/output
+      - id: private_key
+        source: private_key
+      - id: public_key
+        source: public_key
+      - id: secret
+        source: secret
     out:
-      - { id: output }
+      - { id: encrypted }
