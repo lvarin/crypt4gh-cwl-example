@@ -24,15 +24,19 @@ hints:
     ramMin: 2000
 
 inputs:
-  - id: files_to_encrypt
+  - id: files_to_send
     type:
       type: array
       items: File
+    inputBinding:
+      position: 1
 
 outputs:
-  encrypted:
-    type: File
+  output:
+    type:
+      type: array
+      items: Directory
     outputBinding:
-      glob: *.c4g
+      glob: "*.g4h"
 
 baseCommand: ["crypt4gh-wrap-secret-folder"]

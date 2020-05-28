@@ -7,53 +7,31 @@ cwlVersion: v1.0
 inputs:
   - id: input
     type: File
-    doc: "to be hashed all the ways"
-  - id: lftp_out_conf
+    doc: "to be encrypted"
+  - id: input2
     type: File
+    doc: "to be encrypted as well"
 
 outputs:
   - id: output
-    type: File
-    outputSource: unify/output
+    type:
+      type: array
+      items: Directory
+    outputSource: encryptL/output
 
 steps:
-  - id: md5
-    run: hashsplitter-md5.cwl.yml
+  - id: encryptL
+    run: encrypt.yml
     in:
-      - { id: input, source: input }
-    out:
-      - { id: output }
-
-  - id: sha
-    run: hashsplitter-sha.cwl.yml
-    in:
-      - { id: input, source: input }
-    out:
-      - { id: output }
-
-  - id: whirlpool
-    run: hashsplitter-whirlpool.cwl.yml
-    in:
-      - { id: input, source: input }
-    out:
-      - { id: output }
-
-  - id: unify
-    run: hashsplitter-unify.cwl.yml
-    in:
-      - { id: md5, source: md5/output }
-      - { id: sha, source: sha/output }
-      - { id: whirlpool, source: whirlpool/output }
-    out:
-      - { id: output }
-
-  - id: encrypt
-    run: hashsplitter-unify.encrypt.yml
-    in:
-      - id: files_to_encrypt
+      - id: files_to_send
         source:
-          - md5/output
-          - sha/output
-          - whirlpool/output
+          - input
+          - input2
     out:
-      - { id: encrypted }
+      - id: output
+
+# Source "output" of type {"type": "array", "items": "File"} is incompatible with sink "output" of  type "File"
+
+
+requirements:
+  - class: MultipleInputFeatureRequirement
