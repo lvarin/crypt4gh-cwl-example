@@ -24,25 +24,6 @@ hints:
     ramMin: 2000
 
 inputs:
-  - id: private_key
-    type: File
-    doc: "private key"
-    inputBinding:
-      prefix: --sk
-      separate: true
-      position: 1
-  - id: public_key
-    type: File
-    doc: "public key"
-    inputBinding:
-      prefix: --recipient
-      separate: true
-      position: 2
-  - id: secret
-    type: string
-    inputBinding: # Should be an environment variable
-      position: 3
-    doc: "The password of the secret key"
   - id: files_to_encrypt
     type:
       type: array
@@ -54,5 +35,4 @@ outputs:
     outputBinding:
       glob: *.c4g
 
-baseCommand: ["crypt4gh"]
-arguments: ["encrypt"]
+baseCommand: ["crypt4gh-wrap-secret-folder"]

@@ -10,12 +10,6 @@ inputs:
     doc: "to be hashed all the ways"
   - id: lftp_out_conf
     type: File
-  - id: private_key
-    type: File
-  - id: public_key
-    type: File
-  - id: secret
-    type: string
 
 outputs:
   - id: output
@@ -61,11 +55,5 @@ steps:
           - md5/output
           - sha/output
           - whirlpool/output
-      - id: private_key
-        source: private_key
-      - id: public_key
-        source: public_key
-      - id: secret
-        source: secret
     out:
       - { id: encrypted }
