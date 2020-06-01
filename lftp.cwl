@@ -1,12 +1,11 @@
-#!/usr/bin/env cwl-runnercwlVersion: v1.0
-
+cwlVersion: v1.0
 class: CommandLineTool
 
-doc: "Cat the input files"
+doc: "transfer file passed from the previous task to the remote ftp server"
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: lvarin/crypt4gh
+    dockerPull: lvarin/crypt4gh-lftp
   - class: MultipleInputFeatureRequirement
   - class: InitialWorkDirRequirement
     listing: ${
@@ -28,15 +27,15 @@ inputs:
     type:
       type: array
       items: File
-    inputBinding:
-      position: 1
-
+#      inputBinding:
+#        valueFrom: $(self.basename)
 outputs:
-  output:
-    type:
-      type: array
-      items: Directory
-    outputBinding:
-      glob: "*.g4h"
+  - id: output
+    type: stdout
 
-baseCommand: ["crypt4gh-wrap-secret-folder"]
+baseCommand: ["lftp"]
+arguments:
+  - position: 0
+    prefix: "-f"
+    valueFrom: "/secret/lftp.txt"
+
