@@ -1,13 +1,35 @@
-# cwl-example-workflows
-Example workflows written in CWL
+# FEGA CWL upload workflow
 
-For demo use the following files:
+## Configure TESK for this:
 
-- hashsplitter-workflow.cwl
-- hashsplitter-test.yml
+ * Use the image:
+```
+eu.gcr.io/tes-wes/tesk-api:extra_secrets
+```
 
-Execution with cwl-tes:
+ * Add a secret:
+```
+$ oc get secrets secretos -o yaml
+apiVersion: v1
+data:
+  ega_key.c4gh.pub: XXX
+  lftp.txt: XXX
+  sftpkeypassword: XXX
+  sftppassword: XXX
+  testcineca.sk: XXX
+kind: Secret
+metadata:
+  name: secretos
+type: Opaque
+```
 
-```bash
-bash run_example_tesk.sh 
+ * Add the environment variable:
+```
+TESK_API_TASKMASTER_EXECUTOR_SECRET_NAME=secretos
+```
+
+ * Change the tag of the Taskmaster image:
+
+```
+TESK_API_TASKMASTER_IMAGE_VERSION=extra_secrets
 ```
