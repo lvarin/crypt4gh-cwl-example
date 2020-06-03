@@ -7,6 +7,7 @@ requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
     dockerPull: lvarin/crypt4gh-lftp:20200603
+  - class: MultipleInputFeatureRequirement
   - class: ResourceRequirement
     outdirMin: 7200
 hints:
