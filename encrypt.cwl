@@ -15,8 +15,10 @@ hints:
     ramMin: 2000
 
 inputs:
-  - id: file_to_encrypt
-    type: File
+  - id: files_to_encrypt
+    type:
+      type: array
+      items: File
     inputBinding:
       position: 1
 
