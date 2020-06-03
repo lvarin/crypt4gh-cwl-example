@@ -2,6 +2,9 @@ class: Workflow
 cwlVersion: v1.0
 id: encrypt_sftp
 
+requirements:
+  MultipleInputFeatureRequirement: {}
+
 inputs:
   - id: input
     type: File
