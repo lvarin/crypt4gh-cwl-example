@@ -6,7 +6,7 @@ doc: "Encrypt the input file and sftp it"
 requirements:
   - class: InlineJavascriptRequirement
   - class: DockerRequirement
-    dockerPull: lvarin/crypt4gh-lftp
+    dockerPull: lvarin/crypt4gh-lftp:20200603
   - class: ResourceRequirement
     outdirMin: 7200
 hints:
